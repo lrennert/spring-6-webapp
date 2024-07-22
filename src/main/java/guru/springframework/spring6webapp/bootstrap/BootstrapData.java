@@ -27,7 +27,7 @@ public class BootstrapData implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Author eric = new Author();
         eric.setFirstName("Eric");
         eric.setLastName("Evans");
@@ -36,8 +36,8 @@ public class BootstrapData implements CommandLineRunner {
         ddd.setTitle("Domain Driven Design");
         ddd.setIsbn("123456");
 
-        Author ericSaved = authorRepository.save(eric);
-        Book dddSaved = bookRepository.save(ddd);
+        //Author ericSaved = authorRepository.save(eric);
+        //Book dddSaved = bookRepository.save(ddd);
 
         Author rod = new Author();
         rod.setFirstName("Rod");
@@ -50,9 +50,9 @@ public class BootstrapData implements CommandLineRunner {
         Author rodSaved = authorRepository.save(rod);
         Book noEJBSaved = bookRepository.save(noEJB);
 
-        ericSaved.getBooks().add(dddSaved);
+        eric.getBooks().add(ddd);
         rodSaved.getBooks().add(noEJBSaved);
-        dddSaved.getAuthors().add(ericSaved);
+        ddd.getAuthors().add(eric);
         noEJBSaved.getAuthors().add(rodSaved);
 
 
@@ -61,12 +61,12 @@ public class BootstrapData implements CommandLineRunner {
         publisher.setAddress("123 Main");
         Publisher savedPublisher = publisherRepository.save(publisher);
 
-        dddSaved.setPublisher(savedPublisher);
+        ddd.setPublisher(savedPublisher);
         noEJBSaved.setPublisher(savedPublisher);
 
-        authorRepository.save(ericSaved);
+        authorRepository.save(eric);
         authorRepository.save(rodSaved);
-        bookRepository.save(dddSaved);
+        bookRepository.save(ddd);
         bookRepository.save(noEJBSaved);
 
         System.out.println("In Bootstrap");
